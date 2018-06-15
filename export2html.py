@@ -18,6 +18,8 @@ BASE_DIR = reduce(lambda x, y: os.path.dirname(x), range(1), os.path.abspath(__f
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
 TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 OUTPUTS_DIR = os.path.join(BASE_DIR, 'outputs')
+if not os.path.exists(OUTPUTS_DIR):
+    os.makedirs(OUTPUTS_DIR)
 
 highcharts_path = os.path.join(STATIC_DIR, 'highcharts-6.1.0', 'highcharts.js')
 jquery_path = os.path.join(STATIC_DIR, 'jquery-1.8.3', 'jquery-1.8.3.min.js')
