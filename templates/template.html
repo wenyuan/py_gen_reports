@@ -43,12 +43,19 @@
       margin-bottom: 20px;
     }
 
+    .report-charts {
+      margin-bottom: 20px;
+    }
+
+    .report-analysis-path {
+      margin-bottom: 20px;
+    }
+
     .footer {
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
-      background-color: white;
       text-align: center;
     }
 
@@ -64,20 +71,27 @@
 
 <body>
 <nav class="navbar">
-  <span class="report-title" id="report-title"><a href="/">报告名</a></span>
-  <span class="report-subtitle" id="report-subtitle"><a href="/">日期</a></span>
+  <span class="report-title" id="report-title">
+    <a target="_blank" href="https://github.com/xwenyuan/py_gen_reports">报告名</a>
+  </span>
+  <span class="report-subtitle" id="report-subtitle">
+    <a target="_blank" href="https://github.com/xwenyuan/py_gen_reports">日期</a>
+  </span>
 </nav>
 <div class="content">
-  <div class="report-summary">
-
+  <div style="float: left; width: 100%;">
+    <div class="report-summary"></div>
   </div>
-  <div class="report-charts">
-
+  <div style="float: left; width: 100%;">
+    <div class="report-charts"></div>
+  </div>
+  <div style="float: left; width: 100%;">
+    <div class="report-analysis-path"></div>
   </div>
 </div>
 <footer class="footer">
   <p>
-    <a target="_blank" href="https://github.com/xwenyuan">
+    <a target="_blank" href="https://github.com/xwenyuan/py_gen_reports">
       designed by xwenyuan
     </a>
   </p>
