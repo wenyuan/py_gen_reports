@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+
 # ref: https://blog.csdn.net/reallocing1/article/details/51694967
 # bs4: https://beautifulsoup.readthedocs.io/zh_CN/v4.4.0/index.html?highlight=insert_after
 # bs4 css selector: https://www.cnblogs.com/kongzhagen/p/6472746.html
@@ -9,10 +10,13 @@ import copy
 import json
 import datetime
 from bs4 import BeautifulSoup
+import pdfkit
+import platform
 import sys
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
+path_wk = r'D:\Program Files\wkhtmltopdf\\bin\wkhtmltopdf.exe'  # wkhtmltopdf安装位置
 
 BASE_DIR = reduce(lambda x, y: os.path.dirname(x), range(1), os.path.abspath(__file__))
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
@@ -91,12 +95,11 @@ pie_chart_template = {
 }
 
 
-def render_template(report_template, report_title, report_content):
+def render_template(report_template, report_title, report_data):
     report_title = report_title.decode('utf-8')
     # 生成报表名
     current_time = datetime.datetime.now().strftime('%Y-%m-%d-%H%M%S')
-    ext = '.' + report_template.split('.')[-1]
-    report_name = report_title + '_' + current_time + ext
+    report_name = report_title + '_' + current_time
     # 读取html模板
     template_path = os.path.join(TEMPLATES_DIR, report_template)
     soup = BeautifulSoup(open(template_path), 'lxml')
@@ -127,7 +130,7 @@ def render_template(report_template, report_title, report_content):
     soup.html.append(highcharts_js_tag)
 
     # 插入html节点 - 报告内容: 综述
-    summary = report_content.get('summary', '')
+    summary = report_data.get('summary', '')
     if summary:
         subtitle_tag = soup.new_tag('span', style='color:#24A6BC;font-size:30px;font-weight:500')
         subtitle_tag.string = '综述'
@@ -138,7 +141,7 @@ def render_template(report_template, report_title, report_content):
         soup.select('body div.content div.report-summary')[0].append(summary)
 
     # 插入html节点 - 报告内容: 图表
-    charts = report_content.get('charts', [])
+    charts = report_data.get('charts', [])
     if charts:
         subtitle_tag = soup.new_tag('span', style='color:#24A6BC;font-size:30px;font-weight:500;')
         subtitle_tag.string = '图表'
@@ -176,7 +179,7 @@ def render_template(report_template, report_title, report_content):
             soup.html.append(chart_js_tag)
 
     # 插入html节点 - 报告内容: 分析路径
-    analysis_path = report_content.get('analysis_path', '')
+    analysis_path = report_data.get('analysis_path', '')
     if analysis_path:
         subtitle_tag = soup.new_tag('span', style='color:#24A6BC;font-size:30px;font-weight:500')
         subtitle_tag.string = '分析路径'
@@ -186,26 +189,36 @@ def render_template(report_template, report_title, report_content):
         soup.select('body div.content div.report-analysis-path')[0].insert_before(halving_line_tag)
         soup.select('body div.content div.report-analysis-path')[0].append(analysis_path)
 
-    # 导出报告
-    export2html(report_name, soup.prettify())
+    return report_name, soup.prettify()
 
 
-def export2html(report_name, html_data):
-    template_path = os.path.join(OUTPUTS_DIR, report_name)
-    with open(template_path, 'wb') as html_file:
-        html_file.write(html_data.encode('utf-8'))
+def export2html(report_name, report_content):
+    ext = '.html'
+    report_path = os.path.join(OUTPUTS_DIR, report_name + ext)
+    with open(report_path, 'wb') as html_file:
+        html_file.write(report_content.encode('utf-8'))
+
+
+def export2pdf(report_name, report_content):
+    ext = '.pdf'
+    report_path = os.path.join(OUTPUTS_DIR, report_name + ext)
+    if 'Windows' in platform.system():
+        config = pdfkit.configuration(wkhtmltopdf=path_wk)
+        pdfkit.from_string(report_content, report_path, configuration=config)
+    else:
+        pdfkit.from_string(report_content, report_path)
 
 
 if __name__ == "__main__":
     report_title = 'Test Report'
     # 前后端api约定的数据传递格式
-    report_content = {
+    report_data = {
         'summary': '这是一份测试报告，目前支持基础折线图、基础柱状图和基础饼图的一键生成',
         'charts': [
             {
                 'chart_type': 'line_chart',
                 'title': {
-                    'text': '第一张图表'
+                    'text': '基础折线图'
                 },
                 'yAxis': {
                     'title': {
@@ -229,7 +242,7 @@ if __name__ == "__main__":
             {
                 'chart_type': 'pie_chart',
                 'title': {
-                    'text': '各浏览器的访问量占比'
+                    'text': '基础饼图'
                 },
                 'tooltip': {
                     'pointFormat': '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -258,7 +271,7 @@ if __name__ == "__main__":
                     'type': 'column'
                 },
                 'title': {
-                    'text': '月平均降雨量'
+                    'text': '基础柱状图'
                 },
                 'xAxis': {
                     'categories': [],
@@ -287,4 +300,19 @@ if __name__ == "__main__":
         ],
         'analysis_path': 'xxx'
     }
-    render_template('template.html', report_title, report_content)
+
+    # 导出html格式报告
+    report_name, report_content = render_template('default_template.html', report_title, report_data)
+    export2html(report_name, report_content)
+
+    # 导出pdf格式报告
+    for chart in report_data['charts']:
+        chart['plotOptions'] = {
+            'series': {
+                'enableMouseTracking': False,
+                'shadow': False,
+                'animation': False
+            }
+        }
+    report_name, report_content = render_template('default_template.html', report_title, report_data)
+    export2pdf(report_name, report_content)
