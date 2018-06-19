@@ -10,9 +10,9 @@
 
 ## 演示步骤
 1. 安装pip依赖包
-```
-pip install -r requirements.txt
-```
+	```
+	pip install -r requirements.txt
+	```
 2. 安装wkhtmltopdf
 	* Linux环境
 	```
@@ -21,10 +21,13 @@ pip install -r requirements.txt
 	Redhat/CentOS:
 		sudo yum intsall wkhtmltopdf
 	```
-	* [Windows和Mac安装wkhtmltopdf](https://github.com/JazzCore/python-pdfkit/wiki/Installing-wkhtmltopdf)
+	* [Windows和Mac安装wkhtmltopdf](https://github.com/JazzCore/python-pdfkit/wiki/Installing-wkhtmltopdf)</br>
 	  [Windows版下载地址](http://www.bkill.com/download/153533.html)
 3. python export_report.py
-
+	* 导出为html
+	![image](https://github.com/xwenyuan/py_gen_reports/blob/master/screenshots/html_report.gif)
+	* 导出为pdf
+	![image](https://github.com/xwenyuan/py_gen_reports/blob/master/screenshots/pdf_report.gif)
 
 ## 前后端接口
 todo。。。
@@ -49,7 +52,7 @@ todo。。。
 IOError: No wkhtmltopdf executable found: ""
 ```
 当前运行环境是在Windows下，通过.exe执行文件在本机安装了wkhtmltopdf。
-在export_report.py中，修改约第18行位置的**path_wk**这一参数，指向wkhtmltopdf安装位置。注意如果路径中的bin前面使用双斜杠，因为单斜杠会视为将字母b转义。
+在export_report.py中，修改约第19行位置的**path_wk**这一参数，指向wkhtmltopdf安装位置。注意如果路径中的bin前面使用双斜杠，因为单斜杠会视为将字母b转义。
 ```
 path_wk = r'D:\Program Files\wkhtmltopdf\\bin\wkhtmltopdf.exe'
 ```
