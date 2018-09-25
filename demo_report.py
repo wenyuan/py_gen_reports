@@ -302,7 +302,7 @@ if __name__ == "__main__":
     }
 
     # 导出html格式报告
-    report_name, report_content = render_template('default_template.html', report_title, report_data)
+    report_name, report_content = render_template('demo_tpl.html', report_title, report_data)
     export2html(report_name, report_content)
 
     # 导出pdf格式报告
@@ -314,5 +314,5 @@ if __name__ == "__main__":
                 'animation': False
             }
         }
-    report_name, report_content = render_template('default_template.html', report_title, report_data)
+    report_name, report_content = render_template('demo_tpl.html', report_title, report_data)
     export2pdf(report_name, report_content)

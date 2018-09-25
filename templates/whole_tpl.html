@@ -109,15 +109,15 @@
         }
 
         /* 主机信息*/
-        .container .host-info {
+        .container .machine-info {
             padding-top: 20px;
         }
 
-        .container .host-info .content {
+        .container .machine-info .content {
             text-align: center;
         }
 
-        .container .host-info .content span {
+        .container .machine-info .content span {
             display: block;
             padding-top: 15px;
             font-size: 14px;
@@ -156,7 +156,7 @@
             </tr>
             <tr>
                 <td>报告编号</td>
-                <td id="report-id" style="padding-left: 80px">XXXX-19700101-000000</td>
+                <td id="report-id" style="padding-left: 80px">Hibitom-19700101-000000</td>
             </tr>
             <tr>
                 <td>生成时间</td>
@@ -168,23 +168,23 @@
     <div class="report-summary">
         <span class="title">1. 综述</span>
         <p class="content">
-            本次任务共检测主机 <span id="host-count">27</span> 个，域名 <span id="domain-count">15</span> 个，
-            风险总数 <span class="warning" id="risk-count">322</span> 个（另有信息级风险 <span id="info-risk-count">908</span> 个），
+            本次任务共检测主机 <span id="machine-count">27</span> 个，域名 <span id="host-count">15</span> 个，
+            风险总数 <span class="warning" id="risk-count">322</span> 个（另有信息级风险 <span id="info-count">908</span> 个），
             安全风险总评级为 <span class='warning' id="risk-level">紧急</span> 。<br>
-            高风险及以上风险总数 <span id="high-risk-count">56</span> 个，
-            其中主机漏洞 <span id="host-vulne-count">35</span> 个，占比 <span id="host-vulne-pct">62.5</span>% ，
-            Web漏洞 <span id="web-vulne-count">1</span> 个，占比 <span id="web-vulne-pct">1.8</span>% ，
-            弱密码 <span id="weak-pwd-count1">20</span> 个，占比 <span id="weak-pwd-pct">35.7</span>% 。<br>
-            所有主机中包含有高风险漏洞的主机数量为 <span id="high-risk-host-count">18</span> 个， 占主机总数 <span
-            id="high-risk-host-pct">66.7</span>% 。<br>
-            所有域名中包含有高风险漏洞的域名数量为 <span id="high-risk-domain-count">1</span> 个， 占域名总数 <span
-            id="high-risk-domain-pct">6.7</span>% 。<br>
+            高风险及以上风险总数 <span id="high-crit-count">56</span> 个，
+            其中主机漏洞 <span id="high-crit-hostvul-count1">35</span> 个，占比 <span id="high-crit-hostvul-pct-in-risk">62.5</span>% ，
+            Web漏洞 <span id="high-crit-webvul-count1">1</span> 个，占比 <span id="high-crit-webvul-pct-in-risk">1.8</span>% ，
+            弱密码 <span id="weakpwdvul-count1">20</span> 个，占比 <span id="weakpwdvul-pct-in-risk">35.7</span>% 。<br>
+            所有主机中包含有高风险漏洞的主机数量为 <span id="machine-in-high">18</span> 个， 占主机总数 <span
+            id="machine-in-high-pct">66.7</span>% 。<br>
+            所有域名中包含有高风险漏洞的域名数量为 <span id="host-in-high">1</span> 个， 占域名总数 <span
+            id="host-in-high-pct">6.7</span>% 。<br>
             <br>
-            主机漏洞中高风险及以上漏洞为 <span id="high-risk-host-vulne-count">35</span> 个，占主机漏洞总数 <span
-            id="high-risk-host-vulne-pct">20.2</span>% 。<br>
-            Web漏洞中高风险及以上漏洞为 <span id="high-risk-web-vulne-count">1</span> 个，占Web漏洞总数 <span id="high-risk-web-vulne-pct">0.8</span>%
+            主机漏洞中高风险及以上漏洞为 <span id="high-crit-hostvul-count2">35</span> 个，占主机漏洞总数 <span
+            id="high-crit-hostvul-pct-in-hostvul">20.2</span>% 。<br>
+            Web漏洞中高风险及以上漏洞为 <span id="high-crit-webvul-count2">1</span> 个，占Web漏洞总数 <span id="high-crit-webvul-pct-in-webvul">0.8</span>%
             。<br>
-            弱密码 <span id="weak-pwd-count2">20</span> 个，影响主机 <span id="host-in-weak-pwd1">17</span> 个。<br>
+            弱密码 <span id="weakpwdvul-count2">20</span> 个，影响主机 <span id="machine-in-weakpwdvul1">17</span> 个。<br>
         </p>
     </div>
     <!-- 总体风险分析 -->
@@ -202,18 +202,18 @@
                 <span id="scan-type-dist-chart" style="width:450px;height:350px;display:inline-block;"></span>
                 <span id="scan-type-statis-chart"
                       style="width:450px;height:350px;display:inline-block;padding-left:100px;"></span>
-                <span id="host-vulne-dist-chart" style="width:600px;height:350px;"></span>
-                <span id="web-vulne-dist-chart" style="width:600px;height:350px;"></span>
-                <span id="weak-pwd-dist-chart" style="width:600px;height:350px;"></span>
+                <span id="hostvul-statis-chart" style="width:1000px;height:550px;"></span>
+                <span id="webvul-statis-chart" style="width:1000px;height:550px;"></span>
+                <span id="weakpwdvul-statis-chart" style="width:1000px;height:550px;"></span>
             </div>
         </div>
     </div>
     <!-- 主机信息 -->
-    <div class="host-info">
+    <div class="machine-info">
         <span class="title">3. 所有主机（IP）信息统计</span>
         <div class="content">
             <span style="text-align: center">(注：本表格内数据格式为 “ 低风险及以上风险数 / 信息泄露风险数 ”。)</span>
-            <table class="content-table" id="host-info-table">
+            <table class="content-table" id="machine-info-table">
                 <tr>
                     <th>IP地址</th>
                     <th>域名数</th>
@@ -230,13 +230,13 @@
         <span class="title">4. 风险趋势</span>
         <div class="content">
             <span class="subtitle">4.1 紧急风险趋势</span>
-            <span id="emerg-risk-trend-chart" style="width:600px;height:350px;"></span>
+            <span id="crit-risk-trend-chart" style="width:1000px;height:350px;"></span>
             <span class="subtitle">4.2 高风险趋势</span>
-            <span id="high-risk-trend-chart" style="width:600px;height:350px;"></span>
+            <span id="high-risk-trend-chart" style="width:1000px;height:350px;"></span>
             <span class="subtitle">4.3 中风险趋势</span>
-            <span id="midium-risk-trend-chart" style="width:600px;height:350px;"></span>
+            <span id="med-risk-trend-chart" style="width:1000px;height:350px;"></span>
             <span class="subtitle">4.3 低风险趋势</span>
-            <span id="low-risk-trend-chart" style="width:600px;height:350px;"></span>
+            <span id="low-risk-trend-chart" style="width:1000px;height:350px;"></span>
         </div>
     </div>
     <!-- 风险类型分析 -->
@@ -244,7 +244,7 @@
         <span class="title">5. 风险类型分析</span>
         <div class="content">
             <span class="subtitle">5.1 主机风险分析</span>
-            <table class="content-table" id="host-risk-table">
+            <table class="content-table" id="machine-risk-table">
                 <tr>
                     <th>IP地址</th>
                     <th>紧急</th>
@@ -256,10 +256,9 @@
                 </tr>
             </table>
             <span class="subtitle">5.2 域名风险分析</span>
-            <table class="content-table" id="domain-risk-table">
+            <table class="content-table" id="host-risk-table">
                 <tr>
                     <th>域名</th>
-                    <th>标题</th>
                     <th>紧急</th>
                     <th>高风险</th>
                     <th>中风险</th>
@@ -270,8 +269,8 @@
             </table>
             <span class="subtitle">5.3 弱密码分析</span>
             <p class="content-table-con">
-                本次任务共发现弱密码<span class="warning" id="weak-pwd_count3">20</span>个，影响主机<span class="warning"
-                                                                                          id="host-in-weak-pwd2">17</span>个。
+                本次任务共发现弱密码<span class="warning" id="weakpwdvul-count3">20</span>个，影响主机<span class="warning"
+                                                                                          id="machine-in-weakpwdvul2">17</span>个。
             </p>
             <table class="content-table" id="pwd-risk-table">
                 <tr>
