@@ -3,6 +3,7 @@
 > 作为后端接口使用
 > 支持丰富的图表类型
 
+
 ## 适用场景
 * 测试数据结果统计
 * 业务系统报表
@@ -36,21 +37,12 @@
 	* 导出为pdf
 	![image](https://github.com/xwenyuan/py_gen_reports/blob/master/screenshots/pdf_report.gif)
 
-## 前后端接口
-todo。。。
-
 
 ## 定制化需求
 可以采用不同的报告模板进行渲染，这些模板位于/templates目录下。</br>
-目前只有default_template.html这一种模板。
-
-
-## todo
-* 增加图表类型
-* 增加模板类型
-* pdf导出功能
-* 扩充模板类型
-* 完善readme
+目前：
+* 有一个demo模板，使用highcharts作图
+* 一个实际案例报表，使用echarts作图
 
 
 ## 问题
