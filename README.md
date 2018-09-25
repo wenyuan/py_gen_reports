@@ -41,7 +41,7 @@
 ## 定制化需求
 可以采用不同的报告模板进行渲染，这些模板位于/templates目录下。</br>
 目前：
-* 有一个demo模板，使用highcharts作图
+* 一个demo模板，使用highcharts作图
 * 一个实际案例报表，使用echarts作图
 
 
