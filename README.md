@@ -18,14 +18,20 @@
 
 ## 演示步骤
 1. 安装pip依赖包
-	```
+	```bash
 	pip install -r requirements.txt
 	```
 2. 安装wkhtmltopdf
 	* Linux环境
-	```
+	```bash
 	Debian/Ubuntu: 
 		sudo apt-get install wkhtmltopdf
+		# https://github.com/JazzCore/python-pdfkit/wiki/Using-wkhtmltopdf-without-X-server
+		apt-get install xvfb
+		printf '#!/bin/bash\nxvfb-run -a --server-args="-screen 0, 1024x768x24" /usr/bin/wkhtmltopdf -q $*' > /usr/bin/wkhtmltopdf.sh
+		chmod a+x /usr/bin/wkhtmltopdf.sh
+		ln -s /usr/bin/wkhtmltopdf.sh /usr/local/bin/wkhtmltopdf
+		wkhtmltopdf https://www.baidu.com/ output.pdf
 	Redhat/CentOS:
 		sudo yum intsall wkhtmltopdf
 	```
@@ -47,12 +53,12 @@
 
 ## 问题
 * 导出pdf格式的报告时报错
-```
+```bash
 IOError: No wkhtmltopdf executable found: ""
 ```
 当前运行环境是在Windows下，通过.exe执行文件在本机安装了wkhtmltopdf。
 在export_report.py中，修改约第19行位置的**path_wk**这一参数，指向wkhtmltopdf安装位置。注意如果路径中的bin前面使用双斜杠，因为单斜杠会视为将字母b转义。
-```
+```bash
 path_wk = r'D:\Program Files\wkhtmltopdf\\bin\wkhtmltopdf.exe'
 ```
 网上说修改系统变量、保证wkhtmltopdf和python版本一致等做法，试过没有用，依旧读取不到wkhtmltopdf.exe，所以这里采用在程序中指定的方式。<font color=red>希望有更好的解决方案。</font>
